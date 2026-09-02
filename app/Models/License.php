@@ -12,11 +12,13 @@ class License extends Model
         'max_active_user',
         'max_attachment_size_mb',
         'host',
+        'simultaneous_sessions',
     ];
 
     protected $casts = [
         'license_expiry' => 'date',
         'max_active_user' => 'integer',
+        'simultaneous_sessions' => 'integer',
         'max_attachment_size_mb' => 'integer',
     ];
 

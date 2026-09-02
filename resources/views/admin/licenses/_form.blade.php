@@ -50,6 +50,13 @@
 </div>
 
 <div class="mt-4">
+    <x-input-label for="simultaneous_sessions" value="Simultaneous Sessions" />
+    <x-text-input id="simultaneous_sessions" name="simultaneous_sessions" type="number" min="0" class="mt-1 block w-full"
+        value="{{ old('simultaneous_sessions', $license?->simultaneous_sessions ?? 1) }}" required />
+    <x-input-error :messages="$errors->get('simultaneous_sessions')" class="mt-2" />
+</div>
+
+<div class="mt-4">
     <x-input-label for="max_attachment_size_mb" value="Max Attachment Size (MB)" />
     <x-text-input id="max_attachment_size_mb" name="max_attachment_size_mb" type="number" min="0" class="mt-1 block w-full"
         value="{{ old('max_attachment_size_mb', $license?->max_attachment_size_mb) }}" required />

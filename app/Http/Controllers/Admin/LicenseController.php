@@ -114,6 +114,7 @@ class LicenseController extends Controller
             'license_expiry' => ['required', 'date'],
             'license_status' => ['required', Rule::in(['active', 'inactive', 'expired', 'suspended'])],
             'max_active_user' => ['required', 'integer', 'min:0'],
+            'simultaneous_sessions' => ['required', 'integer', 'min:0'],
             'max_attachment_size_mb' => ['required', 'integer', 'min:0'],
             'host' => [
                 'required', 'string', 'max:255',
