@@ -73,7 +73,7 @@
                                     </td>
                                     <td class="px-4 py-2">{{ $license->max_active_user }}</td>
                                     <td class="px-4 py-2">{{ $license->simultaneous_sessions }}</td>
-                                    <td class="px-4 py-2" title="Current users / Total active users">{{ $license->current_users }}/{{ $license->total_active_user }}</td>
+                                    <td class="px-4 py-2" title="Active users / Total users">{{ $license->active_users }}/{{ $license->total_users }}</td>
                                     <td class="px-4 py-2">{{ $license->max_attachment_size_mb }}</td>
                                     <td class="px-4 py-2">
                                         <div class="flex items-center justify-end gap-3">

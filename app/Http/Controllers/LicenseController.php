@@ -9,9 +9,13 @@ use Illuminate\Http\Request;
 class LicenseController extends Controller
 {
     /**
-     * Fetch license data for the given host.
+     * Fetch license data for the given host. The licensed application also
+     * uses this same call to report its live usage — total_users (enabled +
+     * disabled accounts) and active_users (enabled only) are optional query
+     * params; when given, they're persisted before the record is returned.
+     * A plain lookup (no params) is unaffected.
      */
-    public function getByHost($host)
+    public function getByHost(Request $request, $host)
     {
         $license = License::where('host', $host)->first();
 
@@ -21,30 +25,14 @@ class LicenseController extends Controller
             ], 404);
         }
 
-        return response()->json($this->withProvider($license));
-    }
-
-    /**
-     * Report live usage for a host's license (called by the licensed
-     * application itself — not the admin panel). Updates and returns the
-     * license record.
-     */
-    public function reportUsage(Request $request, $host)
-    {
-        $license = License::where('host', $host)->first();
-
-        if (!$license) {
-            return response()->json([
-                'message' => 'License not found for the given host.',
-            ], 404);
-        }
-
-        $data = $request->validate([
-            'total_active_user' => ['required', 'integer', 'min:0'],
-            'current_users' => ['required', 'integer', 'min:0'],
+        $usage = $request->validate([
+            'total_users' => ['sometimes', 'integer', 'min:0'],
+            'active_users' => ['sometimes', 'integer', 'min:0'],
         ]);
 
-        $license->update($data);
+        if (!empty($usage)) {
+            $license->update($usage);
+        }
 
         return response()->json($this->withProvider($license));
     }

@@ -9,4 +9,3 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('license/{host}', [LicenseController::class, 'getByHost']);
-Route::patch('license/{host}/usage', [LicenseController::class, 'reportUsage']);

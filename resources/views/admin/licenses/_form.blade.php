@@ -66,6 +66,6 @@
 @if ($license)
     <div class="mt-6 px-4 py-3 rounded-md bg-gray-50 text-sm text-gray-600">
         <p class="font-medium text-gray-700 mb-1">Usage (reported by the licensed app via the API)</p>
-        <p>Current users: {{ $license->current_users }} &middot; Total active users: {{ $license->total_active_user }}</p>
+        <p>Active users: {{ $license->active_users }} &middot; Total users: {{ $license->total_users }}</p>
     </div>
 @endif
