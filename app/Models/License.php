@@ -13,6 +13,8 @@ class License extends Model
         'max_attachment_size_mb',
         'host',
         'simultaneous_sessions',
+        'total_active_user',
+        'current_users',
     ];
 
     protected $casts = [
@@ -20,6 +22,8 @@ class License extends Model
         'max_active_user' => 'integer',
         'simultaneous_sessions' => 'integer',
         'max_attachment_size_mb' => 'integer',
+        'total_active_user' => 'integer',
+        'current_users' => 'integer',
     ];
 
     protected static function booted(): void

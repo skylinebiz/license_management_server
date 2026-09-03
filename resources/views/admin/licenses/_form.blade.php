@@ -62,3 +62,10 @@
         value="{{ old('max_attachment_size_mb', $license?->max_attachment_size_mb) }}" required />
     <x-input-error :messages="$errors->get('max_attachment_size_mb')" class="mt-2" />
 </div>
+
+@if ($license)
+    <div class="mt-6 px-4 py-3 rounded-md bg-gray-50 text-sm text-gray-600">
+        <p class="font-medium text-gray-700 mb-1">Usage (reported by the licensed app via the API)</p>
+        <p>Current users: {{ $license->current_users }} &middot; Total active users: {{ $license->total_active_user }}</p>
+    </div>
+@endif

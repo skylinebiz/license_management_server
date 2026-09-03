@@ -15,6 +15,9 @@
                     <x-nav-link :href="route('admin.licenses.index')" :active="request()->routeIs('admin.licenses.*')">
                         {{ __('Licenses') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.provider.edit')" :active="request()->routeIs('admin.provider.*')">
+                        {{ __('Provider') }}
+                    </x-nav-link>
                     <!-- <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
                         {{ __('Add Admin') }}
                     </x-nav-link> -->
@@ -72,6 +75,9 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('admin.licenses.index')" :active="request()->routeIs('admin.licenses.*')">
                 {{ __('Licenses') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.provider.edit')" :active="request()->routeIs('admin.provider.*')">
+                {{ __('Provider') }}
             </x-responsive-nav-link>
             <!-- <x-responsive-nav-link :href="route('register')" :active="request()->routeIs('register')">
                 {{ __('Add Admin') }}

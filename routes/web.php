@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\LicenseController;
+use App\Http\Controllers\Admin\LicenseProviderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('licenses', LicenseController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
         Route::patch('licenses/{license}/suspend', [LicenseController::class, 'suspend'])->name('licenses.suspend');
         Route::patch('licenses/{license}/activate', [LicenseController::class, 'activate'])->name('licenses.activate');
+
+        Route::get('provider', [LicenseProviderController::class, 'edit'])->name('provider.edit');
+        Route::put('provider', [LicenseProviderController::class, 'update'])->name('provider.update');
     });
 });
 
