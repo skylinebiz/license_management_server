@@ -46,6 +46,8 @@
                                 <x-sortable-th column="license_expiry" :sort="$sort" :direction="$direction" :search="$search">Expiry</x-sortable-th>
                                 <x-sortable-th column="license_status" :sort="$sort" :direction="$direction" :search="$search">Status</x-sortable-th>
                                 <th class="px-4 py-2">Max Users</th>
+                                <th class="px-4 py-2">Sessions</th>
+                                <th class="px-4 py-2">Usage</th>
                                 <th class="px-4 py-2">Max Attachment (MB)</th>
                                 <th class="px-4 py-2 text-right">Actions</th>
                             </tr>
@@ -70,6 +72,8 @@
                                         </span>
                                     </td>
                                     <td class="px-4 py-2">{{ $license->max_active_user }}</td>
+                                    <td class="px-4 py-2">{{ $license->simultaneous_sessions }}</td>
+                                    <td class="px-4 py-2" title="Active users / Total users">{{ $license->active_users }}/{{ $license->total_users }}</td>
                                     <td class="px-4 py-2">{{ $license->max_attachment_size_mb }}</td>
                                     <td class="px-4 py-2">
                                         <div class="flex items-center justify-end gap-3">
@@ -98,7 +102,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="px-4 py-6 text-center text-gray-500">
+                                    <td colspan="9" class="px-4 py-6 text-center text-gray-500">
                                         {{ __('No licenses found.') }}
                                     </td>
                                 </tr>
