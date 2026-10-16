@@ -4,6 +4,14 @@ All notable changes to this project are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased]
+
+### Added
+- Per-license list of users exempt from the simultaneous-sessions limit: new nullable JSON column `licenses.session_exempt_emails`, edited on the admin add/edit form as free text (one email per line; commas/semicolons also accepted, normalised to a de-duplicated, lower-cased list and validated as emails), shown as "+N exempt" next to the Sessions value in the license list, and returned by `GET /api/license/{host}` as `session_exempt_emails` (always an array). The licensed app decides what "exempt" means for those users.
+
+### Changed
+- README: refreshed the API response sample to the current shape and documented `session_exempt_emails` and the `active_users`/`total_users` query params.
+
 ## [0.5.0] - 2026-08-31
 
 ### Added

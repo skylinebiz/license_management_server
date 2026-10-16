@@ -56,6 +56,21 @@
     <x-input-error :messages="$errors->get('simultaneous_sessions')" class="mt-2" />
 </div>
 
+@php
+    $exempt = old('session_exempt_emails', $license?->session_exempt_emails ?? []);
+    $exempt = is_array($exempt) ? implode("\n", $exempt) : (string) $exempt;
+    $exemptErrors = collect($errors->get('session_exempt_emails.*'))->flatten()
+        ->merge($errors->get('session_exempt_emails'))->all();
+@endphp
+<div class="mt-4">
+    <x-input-label for="session_exempt_emails" value="Session-Limit Exempt Users (emails)" />
+    <textarea id="session_exempt_emails" name="session_exempt_emails" rows="4"
+        placeholder="admin@example.com&#10;user1@example.com"
+        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">{{ $exempt }}</textarea>
+    <p class="mt-1 text-xs text-gray-500">One email per line. These users are not held to the Simultaneous Sessions limit above.</p>
+    <x-input-error :messages="$exemptErrors" class="mt-2" />
+</div>
+
 <div class="mt-4">
     <x-input-label for="max_attachment_size_mb" value="Max Attachment Size (MB)" />
     <x-text-input id="max_attachment_size_mb" name="max_attachment_size_mb" type="number" min="0" class="mt-1 block w-full"

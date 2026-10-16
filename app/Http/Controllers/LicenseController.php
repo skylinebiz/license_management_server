@@ -47,6 +47,8 @@ class LicenseController extends Controller
 
         return [
             ...$license->toArray(),
+            // Always an array (never null) so clients can iterate without a check.
+            'session_exempt_emails' => $license->session_exempt_emails ?? [],
             'provider' => [
                 'name' => $provider->name,
                 'email' => $provider->email,

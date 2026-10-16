@@ -67,12 +67,20 @@ GET /api/license/example.com
   "license_expiry": "2027-03-10T00:00:00.000000Z",
   "license_status": "active",
   "max_active_user": 10,
+  "simultaneous_sessions": 1,
+  "session_exempt_emails": ["admin@example.com", "user1@example.com"],
+  "active_users": 8,
+  "total_users": 12,
   "max_attachment_size_mb": 25,
   "host": "example.com",
   "created_at": "...",
-  "updated_at": "..."
+  "updated_at": "...",
+  "provider": { "name": "Your Company", "email": "licensing@example.com" }
 }
 ```
+
+- `session_exempt_emails` — emails of users the licensed app should **not** hold to `simultaneous_sessions`. Always an array (empty when none). Managed per license from the admin UI (one email per line on the add/edit form).
+- `active_users` / `total_users` are reported by the licensed app via optional `?active_users=&total_users=` query params on this same call.
 
 **404 Not Found** if no license matches the host:
 ```json
