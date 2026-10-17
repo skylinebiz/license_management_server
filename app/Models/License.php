@@ -13,6 +13,7 @@ class License extends Model
         'max_attachment_size_mb',
         'host',
         'simultaneous_sessions',
+        'session_exempt_emails',
         'active_users',
         'total_users',
     ];
@@ -21,6 +22,7 @@ class License extends Model
         'license_expiry' => 'date',
         'max_active_user' => 'integer',
         'simultaneous_sessions' => 'integer',
+        'session_exempt_emails' => 'array',
         'max_attachment_size_mb' => 'integer',
         'active_users' => 'integer',
         'total_users' => 'integer',

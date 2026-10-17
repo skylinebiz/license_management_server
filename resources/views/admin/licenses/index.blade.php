@@ -72,7 +72,14 @@
                                         </span>
                                     </td>
                                     <td class="px-4 py-2">{{ $license->max_active_user }}</td>
-                                    <td class="px-4 py-2">{{ $license->simultaneous_sessions }}</td>
+                                    <td class="px-4 py-2">
+                                        {{ $license->simultaneous_sessions }}
+                                        @if (count($license->session_exempt_emails ?? []))
+                                            <span class="text-xs text-gray-500" title="{{ implode(', ', $license->session_exempt_emails) }}">
+                                                +{{ count($license->session_exempt_emails) }} exempt
+                                            </span>
+                                        @endif
+                                    </td>
                                     <td class="px-4 py-2" title="Active users / Total users">{{ $license->active_users }}/{{ $license->total_users }}</td>
                                     <td class="px-4 py-2">{{ $license->max_attachment_size_mb }}</td>
                                     <td class="px-4 py-2">

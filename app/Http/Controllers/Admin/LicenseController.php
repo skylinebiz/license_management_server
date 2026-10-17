@@ -110,16 +110,43 @@ class LicenseController extends Controller
      */
     private function validateLicense(Request $request, ?License $license = null): array
     {
+        // The form posts the exempt list as free text; turn it into an array first.
+        $request->merge([
+            'session_exempt_emails' => $this->parseEmails($request->input('session_exempt_emails')),
+        ]);
+
         return $request->validate([
             'license_expiry' => ['required', 'date'],
             'license_status' => ['required', Rule::in(['active', 'inactive', 'expired', 'suspended'])],
             'max_active_user' => ['required', 'integer', 'min:0'],
             'simultaneous_sessions' => ['required', 'integer', 'min:0'],
+            'session_exempt_emails' => ['nullable', 'array', 'max:500'],
+            'session_exempt_emails.*' => ['email', 'max:255'],
             'max_attachment_size_mb' => ['required', 'integer', 'min:0'],
             'host' => [
                 'required', 'string', 'max:255',
                 Rule::unique('licenses', 'host')->ignore($license?->id),
             ],
+        ], [
+            'session_exempt_emails.*.email' => '":input" is not a valid email address.',
         ]);
+    }
+
+    /**
+     * Split pasted text (one email per line, but commas/semicolons/spaces work
+     * too) into a de-duplicated, lower-cased list.
+     *
+     * @return list<string>
+     */
+    private function parseEmails(mixed $value): array
+    {
+        $parts = is_array($value)
+            ? $value
+            : preg_split('/[\s,;]+/', (string) $value, -1, PREG_SPLIT_NO_EMPTY);
+
+        return array_values(array_unique(array_map(
+            fn ($email) => mb_strtolower(trim((string) $email)),
+            $parts,
+        )));
     }
 }
